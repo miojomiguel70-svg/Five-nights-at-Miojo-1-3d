@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Prevent libraries from crashing when trying to overwrite read-only fetch
+      (function() {
+        var _fetch = window.fetch;
+        try {
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _fetch; },
+            set: function(v) { console.warn('Fetch overwrite blocked'); },
+            configurable: true
+          });
+        } catch (e) {
+          console.warn('Fetch protector could not be initialized', e);
+        }
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
